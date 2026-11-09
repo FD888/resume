@@ -17,6 +17,8 @@ from reportlab.pdfgen import canvas
 ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "Buydalin_Denis_Resume.pdf"
 PHOTO = ROOT / "photo.jpg"
+# копия с именем по формату СПбГУ: «ФИО, резюме, бак/маг, направление»
+OUT_SPBU = ROOT / "Буйдалин Д.С., резюме, бак. Экономика.pdf"
 
 # ---------------------------------------------------------------- контент
 RESUME = {
@@ -370,6 +372,9 @@ def build():
     c.save()
     if y < BOTTOM:
         sys.exit(f"Контент не влезает на страницу (y={y:.0f} < {BOTTOM}) — сократите текст")
+    import shutil
+    shutil.copyfile(OUT, OUT_SPBU)
+    print(f"Копия: {OUT_SPBU.name}")
     print(f"OK: {OUT} (запас снизу {y - BOTTOM:.0f} pt)")
 
 
